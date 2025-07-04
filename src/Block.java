@@ -26,24 +26,6 @@ public abstract class Block {
 }
 
 
-
-
-
-
-public class NoPowerBlock extends Block{
-    public NoPowerBlock(Position position){
-        super(position);
-    }
-    public void interact(GameBoard board){
-        //we usually do nothing if the block is of nopwr , no function
-    }
-}
-
-
-
-
-
-
 public class FireBlock extends Block{
     public FireBlock(Position position){
         super(position);
@@ -181,12 +163,3 @@ public class AirBlock extends Block{
     }
 }
 
-public class EmptyBlock extends Block{
-    public EmptyBlock(Position position){
-        super(position);
-    }
-
-    public void interact(GameBoard board){
-        
-    }
-}
