@@ -3,7 +3,7 @@ public class EmptyBlock extends Block{
         super(position);
     }
 
-    public void interact(GameBoard board){
-        
+    public boolean interact(GameBoard board){
+        return false;
     }
 }
