@@ -18,10 +18,11 @@ public class GameBoard {
 //            System.out.println("h");
             if (board[row][col].isEmpty()) {
 //                System.out.println("hi");
-                if (row != 9) {
-                    block.position = new Position(row - 1, col);
+                if (row != 0) {
+                    block.position = new Position(row , col);
                     board[row][col] = block;
-                    System.out.println("hello");
+                    System.out.println(block.position);
+//                    System.out.println("hello"+ row + col);
                     return true;
                 }
             }
@@ -33,13 +34,18 @@ public class GameBoard {
     public void updateBoard() {
         boolean a = true;
         while(a) {
+            boolean n = false;
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     if (!board[i][j].isEmpty()) {
                         a = board[i][j].interact(this);
+                        n = a;
                     }
                 }
                 this.applyGravity();
+            }
+            if (!n){
+                break;
             }
         }
     }
