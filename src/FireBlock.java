@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class FireBlock extends Block {
@@ -11,15 +12,28 @@ public class FireBlock extends Block {
         if (isPartOfFirePattern(board)) {
             List<Position> affected = getAdjacentPositions(position);
             boolean a = false;
+            System.out.println(affected.size()+"is size");
             for (Position pos : affected) {
-                a =true;
-                board.setBlockAt(pos.getRow(), pos.getCol(), new EmptyBlock(pos));
+                if(pos.getRow()>-1 && pos.getCol()>-1 && pos.getCol()<10 && pos.getRow()<10 ) {
+                    a = true;
+                    board.setBlockAt(pos.getRow(), pos.getCol(), new EmptyBlock(pos));
+                    removeSurroundings(pos,board);
+                }
             }
             return a;
 
         }
 
         return false;
+    }
+    public void removeSurroundings(Position p,GameBoard board){
+        int r = p.getRow();
+        int c = p.getCol();
+        Block pos = board.getBlockAt(r,c);
+        if (r-1>=0) board.setBlockAt(r ,c, new EmptyBlock(new Position(r-1,c)));
+        if (c-1>=0) board.setBlockAt(r ,c, new EmptyBlock(new Position(r,c-1)));
+        if (r+1<10) board.setBlockAt(r ,c, new EmptyBlock(new Position(r+1,c)));
+        if (c+1<10) board.setBlockAt(r ,c, new EmptyBlock(new Position(r,c+1)));
     }
 
     private static final int[][][] FIRE_PATTERNS = {
