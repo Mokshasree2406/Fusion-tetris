@@ -3,40 +3,34 @@ public class AirBlock extends Block {
         super(position);
     }
 
+    @Override
     public boolean interact(GameBoard board) {
         int row = position.getRow();
         int col = position.getCol();
 
-        int rowCount = 1;
-        int colCount = 1;
+        // Check for 3+ AirBlocks in a row
+        int horizontalCount = countConnectedAirBlocks(board, row, col, 0, 1)
+                + countConnectedAirBlocks(board, row, col, 0, -1) - 1;
 
-        for (int i = col - 1; i >= 0; i--) {
-            Block b = board.getBlockAt(row, i);
-            if (b instanceof AirBlock) rowCount++;
-            else break;
-        }
+        // Check for 3+ AirBlocks in a column
+        int verticalCount = countConnectedAirBlocks(board, row, col, 1, 0)
+                + countConnectedAirBlocks(board, row, col, -1, 0) - 1;
 
-        for (int i = col + 1; i < 10; i++) {
-            Block b = board.getBlockAt(row, i);
-            if (b instanceof AirBlock) rowCount++;
-            else break;
-        }
-
-        for (int i = row - 1; i >= 0; i--) {
-            Block b = board.getBlockAt(i, col);
-            if (b instanceof AirBlock) colCount++;
-            else break;
-        }
-
-        for (int i = row + 1; i < 10; i++) {
-            Block b = board.getBlockAt(i, col);
-            if (b instanceof AirBlock) colCount++;
-            else break;
-        }
-        if(rowCount>=3 || colCount >= 3) {
+        if (horizontalCount >= 3 || verticalCount >= 3) {
             board.shuffleTopLayer();
             return true;
         }
         return false;
+    }
+
+    private int countConnectedAirBlocks(GameBoard board, int row, int col, int rowDir, int colDir) {
+        int count = 0;
+        while (row >= 0 && row < 10 && col >= 0 && col < 10
+                && board.getBlockAt(row, col) instanceof AirBlock) {
+            count++;
+            row += rowDir;
+            col += colDir;
+        }
+        return count;
     }
 }

@@ -4,7 +4,7 @@ public class GameController {
     private GameBoard board;
     public GameController() { board = new GameBoard(); }
 
-//    public void startGame() {
+    //    public void startGame() {
 //        Scanner scanner = new Scanner(System.in);
 //        System.out.println("Fusion Tetris Started!");
 //        while (true) {
@@ -27,7 +27,6 @@ public class GameController {
         System.out.println("Fusion Tetris Started!");
 
         while (true) {
-            board.printBoard();
             System.out.print("Enter block type to drop (fire, water, earth, air, nopower) or 'exit': ");
             String input = scanner.nextLine().trim().toLowerCase();
 
@@ -51,8 +50,17 @@ public class GameController {
 
         scanner.close();
         System.out.println("Game Over.");
-        }
+    }
+    public GameBoard getBoard() {
+        return board;
+    }
+
+    public void updateBoard() {
+        board.updateBoard();
+    }
+
     public void dropBlock(String type, int col) {
+
         Block block = BlockFactory.createBlock(type, new Position(0, col));
         if (board.dropBlock(block, col)) {
             board.printBoard();
@@ -61,4 +69,5 @@ public class GameController {
             System.out.println("Column is full. Try another column.");
         }
     }
+
 }

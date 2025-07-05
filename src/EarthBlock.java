@@ -33,11 +33,11 @@ public class EarthBlock extends Block {
             if (b instanceof EarthBlock) colCount++;
             else break;
         }
-        if(rowCount>=3 || colCount >= 3){
+
+        if (rowCount >= 3 || colCount >= 3) {
             board.shuffleRow(9);
             return true;
         }
-
         return false;
     }
 }
