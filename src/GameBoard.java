@@ -15,8 +15,9 @@ public class GameBoard {
 
     public boolean dropBlock(Block block, int col) {
         for (int row = 9; row >= 0; row--) {
-            System.out.println("h");
-            if (!board[row][col].isEmpty()) {
+//            System.out.println("h");
+            if (board[row][col].isEmpty()) {
+//                System.out.println("hi");
                 if (row != 9) {
                     block.position = new Position(row - 1, col);
                     board[row][col] = block;
