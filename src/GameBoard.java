@@ -34,13 +34,18 @@ public class GameBoard {
     public void updateBoard() {
         boolean a = true;
         while(a) {
+            boolean n = false;
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     if (!board[i][j].isEmpty()) {
                         a = board[i][j].interact(this);
+                        n = a;
                     }
                 }
                 this.applyGravity();
+            }
+            if (!n){
+                break;
             }
         }
     }
